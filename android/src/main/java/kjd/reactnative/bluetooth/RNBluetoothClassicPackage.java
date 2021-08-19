@@ -15,7 +15,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 
 import kjd.reactnative.bluetooth.conn.ConnectionAcceptorFactory;
 import kjd.reactnative.bluetooth.conn.ConnectionConnectorFactory;
-import kjd.reactnative.bluetooth.conn.DelimitedStringDeviceConnectionImpl;
+import kjd.reactnative.bluetooth.conn.ByteArrayDeviceConnectionImpl;
 import kjd.reactnative.bluetooth.conn.DeviceConnectionFactory;
 import kjd.reactnative.bluetooth.conn.RfcommAcceptorThreadImpl;
 import kjd.reactnative.bluetooth.conn.RfcommConnectorThreadImpl;
@@ -34,7 +34,7 @@ public class RNBluetoothClassicPackage implements ReactPackage {
      */
     public static final Builder DEFAULT_BUILDER
             = RNBluetoothClassicPackage.builder()
-                .withConnectionFactory(StandardOption.CONNECTION_TYPE.defaultValue(), DelimitedStringDeviceConnectionImpl::new)
+                .withConnectionFactory(StandardOption.CONNECTION_TYPE.defaultValue(), ByteArrayDeviceConnectionImpl::new)
                 .withConnectorFactory(StandardOption.CONNECTOR_TYPE.defaultValue(), RfcommConnectorThreadImpl::new)
                 .withAcceptorFactory(StandardOption.ACCEPTOR_TYPE.defaultValue(), RfcommAcceptorThreadImpl::new);
 
@@ -65,7 +65,7 @@ public class RNBluetoothClassicPackage implements ReactPackage {
     public RNBluetoothClassicPackage() {
         this.mConnectionFactories = Collections.singletonMap(
                 StandardOption.CONNECTION_TYPE.defaultValue(),
-                DelimitedStringDeviceConnectionImpl::new);
+                ByteArrayDeviceConnectionImpl::new);
         this.mAcceptorFactories = Collections.singletonMap(
                 StandardOption.ACCEPTOR_TYPE.defaultValue(),
                 RfcommAcceptorThreadImpl::new);
