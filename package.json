@@ -14,7 +14,7 @@
     "postversion": "git push && git push --tags && npm publish",
     "release": "npm version prerelease --preid=rc"
   },
-  "repository": "git://github.com/kenjdavidson/react-native-bluetooth-classic.git",
+  "repository": "git@github.com:zyxit2/react-native-bluetooth-classic.git",
   "keywords": [
     "react-native",
     "bluetooth-classic",
@@ -32,7 +32,8 @@
     "Andrew Krugliak (https://github.com/andreykrugliak)",
     "Anton Petrov (https://github.com/tpettrov)",
     "Stephen Woodruff (https://github.com/woodrufs)",
-    "Phil Pettican (https://github.com/philpettican)"
+    "Phil Pettican (https://github.com/philpettican)",
+    "Kostya Marchenko (https://github.com/zyxit2)"
   ],
   "license": "MIT",
   "bugs": {
