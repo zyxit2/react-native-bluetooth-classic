@@ -11,6 +11,7 @@
     "build": "npm run clean && npm run tsc",
     "test": "jest",
     "preversion": "npm run build",
+    "postinstall": "npm run build",
     "postversion": "git push && git push --tags && npm publish",
     "release": "npm version prerelease --preid=rc"
   },
