@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
@@ -26,7 +27,8 @@ public class ByteArrayDeviceConnectionImpl extends AbstractDeviceConnection {
     /**
      * The buffer in which data is stored.
      */
-    private final ByteBuffer mBuffer;
+    // private final ByteBuffer mBuffer;
+    private byte[] mBuffer;
 
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
     
@@ -51,14 +53,17 @@ public class ByteArrayDeviceConnectionImpl extends AbstractDeviceConnection {
         super(socket, properties);
 
         int bufferSize = StandardOption.READ_SIZE.get(mProperties);
-        this.mBuffer = ByteBuffer.allocate(bufferSize);
+        // this.mBuffer = ByteBuffer.allocate(bufferSize);
+        this.mBuffer = new byte[bufferSize];
     }
 
     @Override
     protected void receivedData(byte[] bytes) {
         Log.d(this.getClass().getSimpleName(),
                 String.format("Received %d bytes from device %s", bytes.length, getDevice().getAddress()));
-        mBuffer.put(bytes);
+        // mBuffer.clear();
+        // mBuffer.put(bytes);
+        mBuffer = bytes;
 
         if (mOnDataReceived != null) {
             Log.d(this.getClass().getSimpleName(),
@@ -77,12 +82,14 @@ public class ByteArrayDeviceConnectionImpl extends AbstractDeviceConnection {
      */
     @Override
     public int available() {
-        return mBuffer.array().length;
+        // return mBuffer.array().length;
+        return mBuffer.length;
     }
 
     @Override
     public synchronized boolean clear() {
-        mBuffer.clear();
+        // mBuffer.clear();
+        mBuffer = new byte[1024];
         return true;
     }
 
@@ -96,7 +103,9 @@ public class ByteArrayDeviceConnectionImpl extends AbstractDeviceConnection {
     @Override
     public String read() {
         // Sending as HEX string
-        String message = bytesToHex(mBuffer.array());
+        String message = bytesToHex(mBuffer);
+        // String message = new String(mBuffer.array(), StandardCharsets.ISO_8859_1);
+        // String message = new String(mBuffer, StandardCharsets.ISO_8859_1);
         clear();
 
         return message;
